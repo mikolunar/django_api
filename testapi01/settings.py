@@ -29,6 +29,8 @@ ALLOWED_HOSTS = []
 
 parent_dir = os.path.abspath(os.path.dirname(__file__) + '/..')
 MEDIA_ROOT = os.path.join(parent_dir, 'media/')
+TEXT_FILES_ROOT = os.path.join(parent_dir, 'dicts/')
+
 MEDIA_URL = '/media/'
 
 
@@ -44,11 +46,13 @@ INSTALLED_APPS = [
     'snippets.apps.SnippetsConfig',
     'rest_framework',
     'corsheaders',
-
     'tastypie',
     'posts',
     'lanza_car_sharing',
-    
+    'cvapp',
+    'users.apps.UsersConfig',
+    'crispy_forms',
+
 ]
 
 MIDDLEWARE = [
@@ -64,7 +68,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ORIGIN_ALLOW_ALL=True
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'testapi01.urls'
 
@@ -135,3 +139,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+# STATICFILES_DIRS = (
+#     'D:/django/django_api/cvapp01/cvapp/static',
+#     # Put strings here, like "/home/html/static" or "C:/www/django/static".
+#     # Always use forward slashes, even on Windows.
+#     # Don't forget to use absolute paths, not relative paths.
+# )
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+LOGIN_REDIRECT_URL = '/register'
+
+LOGIN_URL = '/login'

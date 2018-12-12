@@ -1,0 +1,38 @@
+{% extends "cvapp/base.html"%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<!-- <H1>Welcome to CV App</H1>
+<div class="container border border-secondary m-2">
+    {{resume}}
+</div> -->
+<div>
+    <!-- 
+    {{ post.title}} 
+{{post.content}}-->
+
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class=" form-group">
+                <legend class="border-bottom mb-4">Post Form</legend>
+                {{form}}
+            </fieldset>
+            <div class=" form-group">
+                <button class="btn btn-outline-info" type="submit">Save</button>
+
+            </div>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">See other forms <a class="ml-2" href="{% url 'login' %}">Forms</a>
+            </small>
+        </div>
+
+    </div>
+
+
+
+
+</div>
+{% endblock content %}

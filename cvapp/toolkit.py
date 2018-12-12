@@ -1,36 +1,32 @@
-#toolkit
-
+# toolkit
 import smtplib
 import re
 from email.mime.text import MIMEText
 import getpass
-
-
+import os
 
 
 class Email:
 
-    domains=['pl', 'es']
-    valid_email_re=r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
-    total_emails_sent=0
-    instance_emails_sent=0
-  
+    domains = ['pl', 'es']
+    valid_email_re = r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
+    total_emails_sent = 0
+    instance_emails_sent = 0
+
     def __init__(self, subject, sender, recipient, message):
 
-        self.subject=subject
-        self.sender=sender
-        self.recipient=recipient
-        self.message=message
-
-
+        self.subject = subject
+        self.sender = sender
+        self.recipient = recipient
+        self.message = message
 
     @classmethod
     def set_total_emails(cls, total):
-        cls.total_emails_sent=total
+        cls.total_emails_sent = total
 
     @classmethod
     def set_email_re(cls, regex):
-        cls.valid_email_re=regex
+        cls.valid_email_re = regex
 
     @staticmethod
     def validate_email(email):
@@ -39,48 +35,39 @@ class Email:
         else:
             return False
 
-   
     def validate_sender(self):
 
-        if re.match(self.valid_email_re,self.sender):
+        if re.match(self.valid_email_re, self.sender):
             return True
         else:
             return False
 
-        
     def validate_recipient(self):
-        if re.match(self.valid_email_re,self.recipient):
+        if re.match(self.valid_email_re, self.recipient):
             return True
         else:
             return False
 
-
-      
-    
     def validate(self):
 
         if self.validate_recipient():
             if self.validate_sender():
                 if isinstance(self.subject, str):
                     return True
-        
-        return False
-        
 
+        return False
 
     def sent(self):
-       
-        self.instance_emails_sent+=1
-        Email.total_emails_sent+=1
+
+        self.instance_emails_sent += 1
+        Email.total_emails_sent += 1
 
         return True
 
     def print_email(self):
 
-        return 'Subject: '+self.subject+'\n'+'From: '+ self.sender+'\n'+'To: '+ self.recipient +'\n'+'Msg: '+ self.message
+        return 'Subject: '+self.subject+'\n'+'From: ' + self.sender+'\n'+'To: ' + self.recipient + '\n'+'Msg: ' + self.message
 
-
-        
     def __str__(self):
         return self.print_email()
 
@@ -88,19 +75,38 @@ class Email:
         return "Email('{}','{},'{}','{})".format(self.subject, self.sender, self.recipient, self.message)
 
 
-
 class Mailer:
 
-    server=''
+    server = ''
 
-    def __init__(self,host, port, login, password):
-        self.server=smtplib.SMTP(host,port)
-        login=self.server.login(login,password)
-    
+    def __init__(self, host, port, login, password):
+        self.server = smtplib.SMTP(host, port)
+        login = self.server.login(login, password)
+
     def sendmail(self, msg):
 
         self.server.sendmail(msg['From'], msg['To'], msg.as_string())
 
+
+def dict_creator(csv_filename):
+
+    f1 = open(csv_filename, 'r')
+    f2 = open('FINAL_'+csv_filename, 'w')
+
+    a = {}
+    for line in f1:
+        print(line)
+        if '-' in line:
+            key, value = line.split('-')
+            key = key.strip()
+            value = value.strip()
+            value = value.strip('\n')
+            a[key] = value
+
+    f2.write(str(a))
+    f1.close()
+    f2.close()
+    return a
 
 # HOST='serwer1880861.home.pl'
 # PORT=587
@@ -108,13 +114,15 @@ class Mailer:
 # PASS=getpass.getpass()
 # mailer=Mailer(HOST, PORT, LOGIN, PASS)
 
-msg = MIMEText('This is improved MIME message')
-msg['Subject'] = 'The contents of'
-msg['From'] = 'me@sintetics.pl'
-msg['To'] = 'mr@marcinros.net'
+# msg = MIMEText('This is improved MIME message')
+# msg['Subject'] = 'The contents of'
+# msg['From'] = 'me@sintetics.pl'
+# msg['To'] = 'mr@marcinros.net'
 
-#mailer.sendmail(msg)
+# #mailer.sendmail(msg)
 
-email1=Email(msg['Subject'], msg['From'], msg['To'], msg.get_payload())
+# email1=Email(msg['Subject'], msg['From'], msg['To'], msg.get_payload())
 
-print(email1)
+
+# print(email1)
+# dict_creator('univ_degree.csv')

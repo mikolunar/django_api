@@ -1,0 +1,38 @@
+{% extends "cvapp/base.html"%}
+{% block content %}
+
+<!-- <H1>Welcome to CV App</H1>
+<div class="container border border-secondary m-2">
+    {{resume}}
+</div> -->
+<div>
+    <!-- 
+    {{resume}} -->
+
+    {% for item in resume %}
+
+    <article class="media content-section">
+        <div class="media-body">
+            <div class="article-metadata">
+                <a class="mr-2" href="#">CV ID: {{item.pk}}</a>
+                <small class="text-muted"> {{item.fields.first_name}}
+                    {{item.fields.last_name}}</small>
+            </div>
+            <h2><a class="article-title" href="#">
+                </a></h2>
+            <!-- <p class="article-content">{{item.items}}</p> -->
+            <div>
+                {% for key, value in item.fields.items %}
+                <p> {{ key }} : {{value}} </p>
+
+                {% endfor %}
+            </div>
+        </div>
+    </article>
+
+
+    {% endfor %}
+
+
+</div>
+{% endblock content %}
