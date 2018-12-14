@@ -1,0 +1,23 @@
+{% extends "cvapp/base.html"%}
+{% block content %}
+<div>
+
+
+    {% for item in form%}
+    <h3> Title: <a href="/post-update/{{item.pk}}/"> {{item.title }} </a> </h3>
+
+    <p> Content: {{item.content }} </p>
+
+    <div> <span class="text-info"> ID :
+            {{item.pk}}
+        </span> <span class="text-info">Created: {{item.created_at}} </span> <span class="text-info"> Updated :
+            {{item.updated_at}}
+        </span>
+
+    </div>
+    {% endfor %}
+
+</div>
+
+
+{% endblock content %}

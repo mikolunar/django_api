@@ -6,12 +6,23 @@
     <div class="content-section border-top pt-3">
 
 
-        <H2><span class="text-info"> Username: </span> {{ user.username}} </H2>
+        <H2><span class="text-info"> User: </span> {{ user.username}} </H2>
 
-        <p> <span class="text-info"> Email: </span>{{ user.email}} </p>
+        <div class="media">
+            <img class="rounded-circle account-img img-thumbnail" width=100px height=150px src="{{ user.profile.image.url }}">
+            <div class="media-body">
+                <p class="account-heading">{{ user.email }}</p>
+                <p class="text-secondary">{{ user.profile.image.url }}</p>
+                {{user.profile.cv}}
+            </div>
+        </div>
+
 
         <div class="border-top pt-3">
-            <small class="text-muted">For logout : <a class="ml-2" href="#">Logout</a>
+
+            <small class="text-muted">Modify User : <a class="ml-2" href="/change">Modify</a>
+            </small>
+            <small class="text-muted">For logout : <a class="ml-2" href="/logout">Logout</a>
             </small>
         </div>
 
